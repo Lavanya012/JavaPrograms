@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="9e39bd34-80fb-4ae9-a799-5229d8cbff9c" activeEnvironment="Default" name="REST Project 1" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" resourceRoot="${projectDir}" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" id="57bad7a7-d0ed-4b95-b445-2cd552639763" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://maps.googleapis.com" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>http://maps.googleapis.com</con:endpoint></con:endpoints><con:resource name="Json" path="/maps/api/geocode/json" id="0acc77e4-17df-4e41-a561-c5775a8d1189"><con:settings/><con:parameters><con:parameter><con:name>address</con:name><con:value>1600 Amphitheatre Parkway, Mountain View, CA</con:value><con:style>QUERY</con:style><con:default>1600 Amphitheatre Parkway, Mountain View, CA</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>sensor</con:name><con:value>false</con:value><con:style>QUERY</con:style><con:default>false</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="Json 1" id="cac29c38-c219-4e7b-9d93-ac6c05af0344" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:json="http://maps.googleapis.com/maps/api/geocode/json">json:Response</con:element></con:representation><con:request name="Request 1" id="c0a32527-e2a9-425c-bab6-942998ccb9a2" mediaType="application/json"><con:settings/><con:endpoint>http://maps.googleapis.com</con:endpoint><con:request/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
+  <con:entry key="address" value="1600 Amphitheatre Parkway, Mountain View, CA"/>
+  <con:entry key="sensor" value="false"/>
+</con:parameters><con:parameterOrder><con:entry>address</con:entry><con:entry>sensor</con:entry></con:parameterOrder></con:request></con:method></con:resource></con:interface><con:testSuite id="8ae402b6-52bf-4819-85a5-aa8e53d34f9b" name="http://maps.googleapis.com TestSuite"><con:description>TestSuite generated for REST Service [http://maps.googleapis.com]</con:description><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="74e5f546-f0f9-4a79-96ac-66bd870261b7" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Json TestCase" searchProperties="true"><con:description>TestCase generated for REST Resource [Json] located at [/maps/api/geocode/json]</con:description><con:settings/><con:testStep type="restrequest" name="Request 1" id="8c548859-9096-4540-aa38-808a79e2a390"><con:settings/><con:config service="http://maps.googleapis.com" resourcePath="/maps/api/geocode/json" methodName="Json 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Request 1" id="c0a32527-e2a9-425c-bab6-942998ccb9a2" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://maps.googleapis.com</con:endpoint><con:request/><con:originalUri>http://maps.googleapis.com/maps/api/geocode/json</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters>
+  <con:entry key="address" value="1600 Amphitheatre Parkway, Mountain View, CA"/>
+  <con:entry key="sensor" value="false"/>
+</con:parameters><con:parameterOrder><con:entry>address</con:entry><con:entry>sensor</con:entry></con:parameterOrder></con:restRequest></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script" id="e78386d9-ee9b-40f9-b6d2-64e521bc293b"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+def xml= testRunner.testCase.testSuite.project.workspace.getProjectByName("CurrencyConvertor").testSuites["TestSuite 1"].testCases["TestCase1"].testSteps["NumbertoDollar"].getPropertyValue("Request")
+log.info xml
+def holder= new XmlHolder(xml)
+log.info holder.getNodeValue("//web:NumberToDollars/web:dNum")
+
+
+
+import groovy.json.JsonSlurper
+def json= testRunner.testCase.testSteps["Request 1"].getPropertyValue("Response")
+def slurper= new JsonSlurper().parseText(json)
+log.info slurper.results
+
+
+
+
+</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="e3fc8245-9791-4547-b709-4af881ece0f4" name="sample"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="e6b593f5-d044-4406-9981-3b17b2f260af" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 1" searchProperties="true"><con:settings/><con:testStep type="groovy" name="Groovy Script" id="6b828a41-c528-49d1-bf43-4332888508e4"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
+
+import groovy.json.JsonSlurper
+
+
+def xml= testRunner.testCase.testSuite.project.workspace.projects["CurrencyConvertor"].testSuites["TestSuite 1"].testCases["TestCase"].testSteps["SOAP Request"].getPropertyValue("Request")
+
+
+
+def xmlparse= new XmlHolder(xml)
+
+def val=xmlparse.getNodeValue("//web:NumberToDollars/web:dNum")
+
+assert val!=null</script></con:config></con:testStep><con:testStep type="restrequest" name="REST Request" id="35b7e68e-833e-49b3-9cdb-e8219c8aaecb"><con:settings/><con:config service="http://maps.googleapis.com" methodName="Json 1" resourcePath="/maps/api/geocode/json" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="REST Request" id="51c707a9-d211-49fc-a776-7f3868f15514" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://maps.googleapis.com</con:endpoint><con:request/><con:originalUri>http://maps.googleapis.com/maps/api/geocode/json</con:originalUri><con:assertion type="GroovyScriptAssertion" id="99e90a63-49bc-4ff0-a607-70e0f8679d58" name="Script Assertion"><con:configuration><scriptText>log.info messageExchange.response.contentAsString
+
+</scriptText></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:entry key="address" value="1600 Amphitheatre Parkway, Mountain View, CA"/><con:entry key="sensor" value="false"/></con:parameters></con:restRequest></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script1" id="15df6612-783e-4e08-a9d4-13f2b5efee7f"><con:settings/><con:config><script>import groovy.json.JsonSlurper
+
+def json=testRunner.testCase.testSteps["REST Request"].getPropertyValue("Response")
+
+def slurper= new JsonSlurper().parseText(json)
+
+slurper.results.address_components.long_name</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
